@@ -44,6 +44,7 @@ export default function StarRating({
     color,
     fontSize: `${size / 1.5}px`,
   };
+
   return (
     <div style={containerStyle} className={className}>
       <div style={starContainerStyle}>
