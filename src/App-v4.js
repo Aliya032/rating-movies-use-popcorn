@@ -17,6 +17,15 @@ export default function App() {
 
   const [watched, setWatched] = useLocalStorageState([], "watched");
 
+  // const [watched, setWatched] = useState([]);
+  //reading from local storage and setting is as the inital array for watched movie list as it renders on mount
+
+  //using general localStorage
+  // const [watched, setWatched] = useState(function () {
+  //   const storedValue = localStorage.getItem("watched");
+  //   return JSON.parse(storedValue);
+  // });
+
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
   }
@@ -27,11 +36,21 @@ export default function App() {
 
   function handleAddWatched(movie) {
     setWatched((watched) => [...watched, movie]);
+
+    // localStorage.setItem("watched", JSON.stringify([...watched, movie]));
   }
 
   function handleDeleteWatched(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
+
+  // //storing in local storage
+  // useEffect(
+  //   function () {
+  //     localStorage.setItem("watched", JSON.stringify(watched));
+  //   },
+  //   [watched]
+  // );
 
   return (
     <>
@@ -110,6 +129,7 @@ function Search({ query, setQuery }) {
     setQuery("");
   });
 
+  //instead of this below function use the hook useRef.
   // useEffect(function () {
   //   const el = document.querySelector(".search");
   //   console.log(el);
@@ -152,6 +172,28 @@ function Box({ children }) {
     </div>
   );
 }
+
+/*
+function WatchedBox() {
+
+  return (
+    <div className="box">
+      <button
+        className="btn-toggle"
+        onClick={() => setIsOpen2((open) => !open)}
+      >
+        {isOpen2 ? "–" : "+"}
+      </button>
+      {isOpen2 && (
+        <>
+          <WatchedSummary watched={watched} />
+          <WatchedMovieList watched={watched} />
+        </>
+      )}
+    </div>
+  );
+}
+*/
 
 function MovieList({ movies, onSelectMovie }) {
   return (
@@ -210,6 +252,8 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     Genre: genre,
   } = movie;
 
+  // if (imdbRating > 8) [isTop, setIsTop] = useState(true);
+
   //early return example
   // if (imdbRating > 8) return <p>greatest ever! </p>;
   // ERROR -> Rendered fewer hooks than expected. This may be caused by an accidental early return statement.
@@ -242,6 +286,9 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
 
     onAddWatched(newWatchedMovie);
     onCloseMovie();
+
+    // setAvgRating(Number(imdbRating));
+    // setAvgRating((avgRating) => (avgRating + userRating) / 2);
   }
 
   useKey("Escape", onCloseMovie);
@@ -270,6 +317,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
 
       return function () {
         document.title = "usePopcorn";
+        // console.log(`clean up effect for movie ${title}`);
       };
     },
     [title]
@@ -298,6 +346,8 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
               </p>
             </div>
           </header>
+
+          {/* <p>{avgRating}</p> */}
 
           <section>
             <div className="rating">
