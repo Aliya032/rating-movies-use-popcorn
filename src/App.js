@@ -110,12 +110,6 @@ function Search({ query, setQuery }) {
     setQuery("");
   });
 
-  // useEffect(function () {
-  //   const el = document.querySelector(".search");
-  //   console.log(el);
-  //   el.focus();
-  // }, []);
-
   return (
     <input
       className="search"
@@ -209,24 +203,6 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     Director: director,
     Genre: genre,
   } = movie;
-
-  //early return example
-  // if (imdbRating > 8) return <p>greatest ever! </p>;
-  // ERROR -> Rendered fewer hooks than expected. This may be caused by an accidental early return statement.
-
-  // const [isTop, setIsTop] = useState(imdbRating > 8);
-  // console.log(isTop);
-  // useEffect(
-  //   function () {
-  //     setIsTop(imdbRating > 8);
-  //   },
-  //   [imdbRating]
-  // );
-
-  // const isTop = imdbRating > 8;
-  // console.log(isTop);
-
-  // const [avgRating, setAvgRating] = useState(0);
 
   function handleAdd() {
     const newWatchedMovie = {
